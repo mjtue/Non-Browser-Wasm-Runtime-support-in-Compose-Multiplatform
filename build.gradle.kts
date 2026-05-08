@@ -1,5 +1,5 @@
 plugins {
-    kotlin("jvm") version "2.3.20"
+    kotlin("multiplatform") version "2.3.20"
 }
 
 group = "org.example"
@@ -9,14 +9,13 @@ repositories {
     mavenCentral()
 }
 
-dependencies {
-    testImplementation(kotlin("test"))
-}
-
 kotlin {
-    jvmToolchain(21)
+    wasmWasi {
+        nodejs()
+        binaries.executable()
+    }
 }
 
-tasks.test {
-    useJUnitPlatform()
+tasks.register("runWasm") {
+    dependsOn("wasmWasiNodeRun")
 }
