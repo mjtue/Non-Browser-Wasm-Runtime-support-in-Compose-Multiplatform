@@ -19,3 +19,7 @@ kotlin {
 tasks.register("runWasm") {
     dependsOn("wasmWasiNodeRun")
 }
+
+tasks.withType<org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsExec>().configureEach {
+    standardInput = System.`in`
+}
